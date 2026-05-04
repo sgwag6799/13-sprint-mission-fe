@@ -52,6 +52,26 @@ async function testProductApi() {
   const product = await getProduct(3669);
   console.log("getProduct::", product);
 
+  const product1 = await getProduct(); // undefined 케이스
+  console.log("getProduct::", product1);
+
+  const product2 = await getProduct(9999);
+  console.log("getProduct::", product2);
+  // 콘솔에 안찍히고
+  // 에러 발생: 404
+  // file:///Users/julie/Desktop/codeit-FS13/sprint-mission-%EA%B3%BD%EC%84%9C%ED%98%84/ProductService.js:22
+  //     if (!response.ok) throw new Error(`에러 발생: ${response.status}`);
+  //                             ^
+
+  // Error: 에러 발생: 404
+  //     at getProduct (file:///Users/julie/Desktop/codeit-FS13/sprint-mission-%EA%B3%BD%EC%84%9C%ED%98%84/ProductService.js:22:29)
+  //     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+  //     at async testProductApi (file:///Users/julie/Desktop/codeit-FS13/sprint-mission-%EA%B3%BD%EC%84%9C%ED%98%84/main.js:55:20)
+  // 이렇게 출력됨
+  // throw error 가 없으면,
+  //   에러 발생: 404
+  // getProduct:: undefined
+
   const createdProduct = await createProduct({
     name: "테스트 상품",
     description: "테스트 상품 설명",
